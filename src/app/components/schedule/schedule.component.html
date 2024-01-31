@@ -1,0 +1,15 @@
+<form [formGroup]="scheduleForm" (ngSubmit)="getSchedule()">
+  <select formControlName="transportType">
+    <option value="plane">Самолет</option>
+    <option value="train">Поезд</option>
+    <option value="bus">Автобус</option>
+    <!-- and other transports -->
+  </select>
+  <input formControlName="from" placeholder="Откуда">
+  <input formControlName="to" placeholder="Куда">
+  <input formControlName="date" type="date">
+  <button type="submit">Получить расписание</button>
+</form>
+<div *ngIf="schedule">
+  <!-- Отобразите расписание здесь -->
+</div>
