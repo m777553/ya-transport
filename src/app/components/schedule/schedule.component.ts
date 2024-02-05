@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { YandexScheduleService } from '../../services/yandex-schedule.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Schedule } from './schedule.model';
 
 @Component({
   selector: 'app-schedule',
@@ -10,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
   scheduleForm!: FormGroup;
-  schedule: any;
+  schedule!: Schedule;
   private destroy$ = new Subject<void>();
 
   constructor(private _yandexScheduleService: YandexScheduleService) { }

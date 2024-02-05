@@ -10,4 +10,26 @@
   <button type="submit">Получить расписание</button>
 </form>
 <div *ngIf="schedule">
+  <table>
+    <thead>
+      <tr>
+        <th>Откуда</th>
+        <th>Куда</th>
+        <th>Дата и время отправления</th>
+        <th>Дата и время прибытия</th>
+        <th>Тип транспорта</th>
+        <th>Номер рейса</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let segment of schedule.segments">
+        <td>{{ segment.from.title }}</td>
+        <td>{{ segment.to.title }}</td>
+        <td>{{ segment.departure }}</td>
+        <td>{{ segment.arrival }}</td>
+        <td>{{ segment.thread.transport_type }}</td>
+        <td>{{ segment.thread.number }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
