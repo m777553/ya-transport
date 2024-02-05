@@ -23,4 +23,16 @@ button {
   &:hover {
     background-color: #45a049;
   }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+}
+
+table {
+  td {
+    text-align: center;
+    vertical-align: middle;
+  }
 }

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { YandexScheduleService } from '../../services/yandex-schedule.service';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, of, Subject, takeUntil } from 'rxjs';
 import { Schedule } from './schedule.model';
+import { scheduleMock } from './schedule.mock';
 
 @Component({
   selector: 'app-schedule',
@@ -18,17 +19,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.scheduleForm = new FormGroup({
-      'transportType': new FormControl(''),
-      'from': new FormControl(''),
-      'to': new FormControl(''),
-      'date': new FormControl('')
+        'transportType': new FormControl('', Validators.required),
+        'from': new FormControl('', Validators.required),
+        'to': new FormControl('', Validators.required),
+        'date': new FormControl('', Validators.required)
     });
   }
 
   getSchedule() {
     const formValues = this.scheduleForm.value;
     this._yandexScheduleService.getSchedule(formValues.transportType, formValues.from, formValues.to, formValues.date)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$),
+        catchError(()=> of(scheduleMock)))
       .subscribe(schedule => this.schedule = schedule);
   }
 

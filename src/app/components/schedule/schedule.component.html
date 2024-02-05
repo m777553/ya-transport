@@ -1,5 +1,6 @@
 <form [formGroup]="scheduleForm" (ngSubmit)="getSchedule()">
   <select formControlName="transportType">
+    <option value="" disabled selected>Выберите тип транспорта</option>
     <option value="plane">Самолет</option>
     <option value="train">Поезд</option>
     <option value="bus">Автобус</option>
@@ -7,7 +8,7 @@
   <input formControlName="from" placeholder="Откуда">
   <input formControlName="to" placeholder="Куда">
   <input formControlName="date" type="date">
-  <button type="submit">Получить расписание</button>
+  <button type="submit" [disabled]="scheduleForm.invalid">Получить расписание</button>
 </form>
 <div *ngIf="schedule">
   <table>
@@ -25,8 +26,8 @@
       <tr *ngFor="let segment of schedule.segments">
         <td>{{ segment.from.title }}</td>
         <td>{{ segment.to.title }}</td>
-        <td>{{ segment.departure }}</td>
-        <td>{{ segment.arrival }}</td>
+        <td>{{ segment.departure | date }}</td>
+        <td>{{ segment.arrival | date }}</td>
         <td>{{ segment.thread.transport_type }}</td>
         <td>{{ segment.thread.number }}</td>
       </tr>
